@@ -168,23 +168,21 @@ Frontend runs on:
 
 📁 Project Structure
 FlyBookr/
-├── backend/                      # Spring Boot API 
-│   ├── src/main/java/com/flybookr/
-│   │   ├── entity/               # Flight, Booking, Passenger
-│   │   ├── controller/           # REST Controllers
-│   │   ├── service/              # Business Logic
-│   │   ├── repository/           # JPA Repositories
-│   │   └── FlightBokkingApplication.java
-│   └── pom.xml
-│
-├── frontend/                     # React Application
-│   ├── src/
-│   │   ├── components/          
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-│
-├── doc/                          # Screenshots
+├── backend/ # 🔥 JAVA BACKEND (Primary)
+│ ├── src/main/java/com/flybookr/
+│ │ ├── entity/
+│ │ ├── controller/
+│ │ ├── service/
+│ │ ├── repository/
+│ │ └── FlightBokkingApplication.java
+│ └── pom.xml
+├── frontend/ # React UI (Secondary)
+│ ├── src/
+│ │ ├── components/
+│ │ ├── App.js
+│ │ └── index.js
+│ └── package.json
+├── doc/ # Documentation
 └── README.md
 
 
