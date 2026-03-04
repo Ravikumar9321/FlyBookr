@@ -122,6 +122,25 @@ gender
 
 booking (Many-to-One)
 
+📁 Project Structure
+FlyBookr/
+├── backend/ # 🔥 JAVA BACKEND (Primary)
+│ ├── src/main/java/com/flybookr/
+│ │ ├── entity/
+│ │ ├── controller/
+│ │ ├── service/
+│ │ ├── repository/
+│ │ └── FlightBokkingApplication.java
+│ └── pom.xml
+├── frontend/ # React UI (Secondary)
+│ ├── src/
+│ │ ├── components/
+│ │ ├── App.js
+│ │ └── index.js
+│ └── package.json
+├── doc/ # Documentation
+└── README.md
+
 🔗 REST API Endpoints
 ✈️ Flight APIs
 
@@ -166,24 +185,7 @@ npm start
 Frontend runs on:
 👉 http://localhost:3000
 
-📁 Project Structure
-FlyBookr/
-├── backend/ # 🔥 JAVA BACKEND (Primary)
-│ ├── src/main/java/com/flybookr/
-│ │ ├── entity/
-│ │ ├── controller/
-│ │ ├── service/
-│ │ ├── repository/
-│ │ └── FlightBokkingApplication.java
-│ └── pom.xml
-├── frontend/ # React UI (Secondary)
-│ ├── src/
-│ │ ├── components/
-│ │ ├── App.js
-│ │ └── index.js
-│ └── package.json
-├── doc/ # Documentation
-└── README.md
+
 
 
 ## 🎯 Future Enhancements
