@@ -122,6 +122,29 @@ gender
 
 booking (Many-to-One)
 
+## 📁 Project Structure
+
+| Path | Description |
+|------|-------------|
+| `FlyBookr/` | **Root Directory** |
+| `backend/` | **Spring Boot API**  |
+| `backend/src/main/java/com/flybookr/` | **Java Source Code** |
+| `entity/` | Flight, Booking, Passenger entities |
+| `controller/` | REST Controllers |
+| `service/` | Business Logic |
+| `repository/` | JPA Repositories |
+| `FlightBokkingApplication.java` | **Main Application Class** |
+| `pom.xml` | Maven Dependencies |
+| `frontend/` | **React Application** |
+| `frontend/src/` | React Source |
+| `components/` | React Components |
+| `App.js` | Main App Component |
+| `index.js` | Entry Point |
+| `package.json` | NPM Dependencies |
+| `doc/` | **Screenshots & Documentation** |
+| `README.md` | **This file** |
+
+
 🔗 REST API Endpoints
 ✈️ Flight APIs
 
@@ -166,26 +189,8 @@ npm start
 Frontend runs on:
 👉 http://localhost:3000
 
-📁 Project Structure
-FlyBookr/
-├── backend/                      # Spring Boot API
-│   ├── src/main/java/com/flybookr/
-│   │   ├── entity/               # Flight, Booking, Passenger
-│   │   ├── controller/           # REST Controllers
-│   │   ├── service/              # Business Logic
-│   │   ├── repository/           # JPA Repositories
-│   │   └── FlightBokkingApplication.java
-│   └── pom.xml
-│
-├── frontend/                     # React Application
-│   ├── src/
-│   │   ├── components/          
-│   │   ├── App.js
-│   │   └── index.js
-│   └── package.json
-│
-├── doc/                          # Screenshots
-└── README.md
+
+
 
 ## 🎯 Future Enhancements
 - User authentication with JWT
