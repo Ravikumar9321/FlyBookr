@@ -122,24 +122,28 @@ gender
 
 booking (Many-to-One)
 
-📁 Project Structure
-FlyBookr/
-├── backend/ # 🔥 JAVA BACKEND (Primary)
-│ ├── src/main/java/com/flybookr/
-│ │ ├── entity/
-│ │ ├── controller/
-│ │ ├── service/
-│ │ ├── repository/
-│ │ └── FlightBokkingApplication.java
-│ └── pom.xml
-├── frontend/ # React UI (Secondary)
-│ ├── src/
-│ │ ├── components/
-│ │ ├── App.js
-│ │ └── index.js
-│ └── package.json
-├── doc/ # Documentation
-└── README.md
+## 📁 Project Structure
+
+| Path | Description |
+|------|-------------|
+| `FlyBookr/` | **Root Directory** |
+| `backend/` | **Spring Boot API** ⭐ MAIN |
+| `backend/src/main/java/com/flybookr/` | **Java Source Code** |
+| `entity/` | Flight, Booking, Passenger entities |
+| `controller/` | REST Controllers |
+| `service/` | Business Logic |
+| `repository/` | JPA Repositories |
+| `FlightBokkingApplication.java` | **Main Application Class** |
+| `pom.xml` | Maven Dependencies |
+| `frontend/` | **React Application** |
+| `frontend/src/` | React Source |
+| `components/` | React Components |
+| `App.js` | Main App Component |
+| `index.js` | Entry Point |
+| `package.json` | NPM Dependencies |
+| `doc/` | **Screenshots & Documentation** |
+| `README.md` | **This file** |
+
 
 🔗 REST API Endpoints
 ✈️ Flight APIs
