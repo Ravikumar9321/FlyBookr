@@ -167,9 +167,8 @@ Frontend runs on:
 👉 http://localhost:3000
 
 📁 Project Structure
-
 FlyBookr/
-├── backend/                      # Spring Boot API
+├── backend/                      # Spring Boot API 
 │   ├── src/main/java/com/flybookr/
 │   │   ├── entity/               # Flight, Booking, Passenger
 │   │   ├── controller/           # REST Controllers
@@ -187,6 +186,7 @@ FlyBookr/
 │
 ├── doc/                          # Screenshots
 └── README.md
+
 
 ## 🎯 Future Enhancements
 - User authentication with JWT
