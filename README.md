@@ -127,7 +127,7 @@ booking (Many-to-One)
 | Path | Description |
 |------|-------------|
 | `FlyBookr/` | **Root Directory** |
-| `backend/` | **Spring Boot API** ⭐ MAIN |
+| `backend/` | **Spring Boot API**  |
 | `backend/src/main/java/com/flybookr/` | **Java Source Code** |
 | `entity/` | Flight, Booking, Passenger entities |
 | `controller/` | REST Controllers |
