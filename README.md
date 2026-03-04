@@ -167,6 +167,7 @@ Frontend runs on:
 👉 http://localhost:3000
 
 📁 Project Structure
+
 FlyBookr/
 ├── backend/                      # Spring Boot API
 │   ├── src/main/java/com/flybookr/
