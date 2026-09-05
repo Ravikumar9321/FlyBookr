@@ -4,7 +4,7 @@ import axios from "axios";
 
 function ViewBookings() {
   const [bookings, setBookings] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [ setLoading] = useState(true);
   const [error, setError] = useState("");
 
   // Filter state: user can enter bookingId or phone
