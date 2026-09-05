@@ -4,7 +4,7 @@ import axios from "axios";
 
 function ViewBookings() {
   const [bookings, setBookings] = useState([]);
-  const [, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
 
   // Filter state: user can enter bookingId or phone
@@ -93,8 +93,10 @@ function ViewBookings() {
 
 
   
-  if (error) {
+  if (error&&loading) {
+    
     return (
+      
       <div style={styles.center}>
         <h2>{error}</h2>
         <button onClick={fetchBookings} style={styles.refreshBtn}>
