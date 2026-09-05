@@ -93,7 +93,7 @@ function ViewBookings() {
 
 
   
-  if (error) {
+  if (error && loading) {
     return (
       <div style={styles.center}>
         <h2>{error}</h2>
