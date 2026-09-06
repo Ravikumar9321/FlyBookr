@@ -14,10 +14,10 @@ import org.springframework.stereotype.Repository;
 
 import com.flight_booking_system.DTO.Bookingstatus;
 import com.flight_booking_system.Entity.Bookings;
-import com.flight_booking_system.Entity.Flight;
+
 import com.flight_booking_system.Entity.Passenger;
 import com.flight_booking_system.Entity.Payment;
-import com.flight_booking_system.Exception.NoSeatAvailableException;
+
 import com.flight_booking_system.Repository.Booking_Repository;
 
 
@@ -40,7 +40,6 @@ public class Booking_Dao {
 	}
 
 	public Optional<Bookings> getBookingsById(int id) {
-		// TODO Auto-generated method stub
 		return br.findById(id);
 	}
 	public Bookings updateBooking(Bookings booking) {
@@ -56,27 +55,27 @@ public class Booking_Dao {
 	}
 
 	public List<Passenger> getallPassengersByBookingsId(Integer id) {
-		// TODO Auto-generated method stub
+	
 		return br.getAllPassengerByBookingId(id);
 	}
 
 	public List<Bookings> getBookingsDetailsByDate(LocalDate date) {
-		// TODO Auto-generated method stub
+	
 		return br.getAllBookingDeatilsByDate(date);
 	}
 
 	public List<Bookings> getBookingsDetailsByStatus(Bookingstatus status) {
-		// TODO Auto-generated method stub
+		
 		return br.getAllBookingDeatilsByStatus(status);
 	}
 
 	public Optional<Payment> getPaymentDetailsbyBookingId(Integer bookingId) {
-		// TODO Auto-generated method stub
+	
 		return br.getPaymentByBookingId(bookingId);
 	}
 
 	public List<Bookings> getBookingDetailsbyFlightId(Integer flightId) {
-		// TODO Auto-generated method stub
+	
 		return br.getAllBookingDeatilsByFlightId(flightId);
 	}
 

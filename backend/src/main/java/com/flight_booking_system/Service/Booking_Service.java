@@ -2,7 +2,6 @@ package com.flight_booking_system.Service;
 
 
 import java.time.LocalDate;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -12,9 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.bind.annotation.PostMapping;
 
-import com.flight_booking_system.Controller.Flight_Controller;
 import com.flight_booking_system.DAO.Booking_Dao;
 import com.flight_booking_system.DAO.Flight_Dao;
 import com.flight_booking_system.DAO.Passenger_Dao;
@@ -186,7 +183,6 @@ public ResponseEntity<ResponseStructure<List<Passenger>>> getallPassengersByBook
 
 
 public ResponseEntity<ResponseStructure<List<Bookings>>> getBookingsDetailsByDate(LocalDate date) {
-	// TODO Auto-generated method stub
 	ResponseStructure<List<Bookings>> rs=new ResponseStructure<>();
     List<Bookings> bookings =bdao.getBookingsDetailsByDate(date);
     if(!bookings.isEmpty()) {

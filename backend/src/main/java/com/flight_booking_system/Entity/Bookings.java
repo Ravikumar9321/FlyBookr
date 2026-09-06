@@ -2,12 +2,12 @@ package com.flight_booking_system.Entity;
 
 import java.time.LocalDate
 ;
-import java.time.LocalDateTime;
+
 import java.util.List;
 
 import org.hibernate.annotations.CreationTimestamp;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import com.flight_booking_system.DTO.Bookingstatus;
 
 import jakarta.persistence.CascadeType;
@@ -22,7 +22,7 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import lombok.Data;
-import lombok.Getter;
+
 
 @Entity
 @Data

@@ -30,7 +30,6 @@ public class Passenger_Dao {
 
 	//iii)get Passenger details by id
 	public Optional<Passenger> getPassengerById(int id) {
-		// TODO Auto-generated method stub
 		return pr .findById(id);
 	}
 	//iv)update Passenger
@@ -47,7 +46,6 @@ public class Passenger_Dao {
 		return pr .findAll(PageRequest.of(pageNumber, pageSize,Sort.by(field).ascending()));
 	}
 	public Optional<Passenger> getPassengerDetailsByContactNumber(String contact) {
-		// TODO Auto-generated method stub
 		return pr.getPassengerDetailsByContactNumber(contact);
 	}
 	

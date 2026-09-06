@@ -25,7 +25,6 @@ import com.flight_booking_system.Service.Booking_Service;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-import java.awt.print.Book;
 import java.util.Arrays;
 import java.util.List;
 
@@ -254,8 +253,7 @@ public class BookingControllerTests {
     		b1.setId(1);
     		Bookings b2=new Bookings();
     		b2.setId(2);
-    		Bookings b3=new Bookings();
-    		b2.setId(3);
+    		
     		Page<Bookings> page=new PageImpl<Bookings>(Arrays.asList(b1,b2));
     		ResponseStructure<Page<Bookings>> response=new ResponseStructure<Page<Bookings>>();
     		response.setData(page);

@@ -23,7 +23,6 @@ public class Flight_Dao {
 		 
 	}
 	public List<Flight> saveAllFlightDetails(List<Flight> flight) {
-		// TODO Auto-generated method stub
 		return fr.saveAll(flight);
 	}
 	
@@ -34,7 +33,6 @@ public class Flight_Dao {
 
 	//iii)get Flight details by id
 	public Optional<Flight> getFlightById(int id) {
-		// TODO Auto-generated method stub
 		return fr.findById(id);
 	}
 	
@@ -53,15 +51,12 @@ public class Flight_Dao {
 		return fr.findAll(PageRequest.of(pageNumber, pageSize,Sort.by(field).ascending()));
 	}
 	public List<Flight> getFlightDetailsByAirlineName(String airlineName) {
-		// TODO Auto-generated method stub
 		return fr.getFlightDetailsByAirlineName(airlineName);
 	}
 	public List<Flight> getFlightDetailsBysourceAndDestionation(String source, String destination) {
-		// TODO Auto-generated method stub
-		return fr.getFlightDetailsBysourceAndDestionation(source, destination);
+					return fr.getFlightDetailsBysourceAndDestionation(source, destination);
 	}
 	public List<Flight> getFlightDetailsByPrice(String price) {
-		// TODO Auto-generated method stub
 		return fr.getFlightDetailsByPrice(price);
 	}
 	
