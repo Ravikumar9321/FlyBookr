@@ -9,7 +9,7 @@ A production‑ready flight booking system built with **Spring Boot + React.js**
 ### Backend
 - Java 21  
 - Spring Boot 3.5.5  
-- Spring Security (JWT Authentication & Role‑Based Access)  
+- Spring Security (JWT Authentication)  
 - Spring Data JPA / Hibernate  
 - PostgreSQL  
 - Swagger/OpenAPI 3.0  
@@ -26,6 +26,7 @@ A production‑ready flight booking system built with **Spring Boot + React.js**
 - Postman (API Testing)  
 - JUnit 5 & Mockito (Unit Testing)  
 - Git & GitHub  
+- Eclipse IDE  
 
 ---
 
@@ -43,7 +44,7 @@ Backend follows a clean layered architecture:
 - 🔍 **Flight Management** – Search, filter, and view flights  
 - 🧾 **Booking Management** – Create bookings with multiple passengers  
 - 👥 **Passenger Management** – JPA entity mapping with relationships  
-- 🔒 **Secure Authentication** – JWT login & role‑based access (Admin/User)  
+- 🔒 **Secure Authentication** – JWT login & Register 
 - 📘 **API Documentation** – Swagger UI with JWT integration  
 - 🧪 **Testing** – Unit tests with JUnit 5 & Mockito  
 
@@ -96,3 +97,14 @@ spring.datasource.url=jdbc:postgresql://localhost:5432/FlightManagementDB
 spring.datasource.username=postgres
 spring.datasource.password=root
 spring.jpa.hibernate.ddl-auto=update
+
+ ###  2️⃣ Backend Setup (Eclipse)
+
+-->   Import the backend project into Eclipse IDE
+-->   Right‑click the project → Run As → Spring Boot App
+-->    Backend runs on: http://localhost:8080
+
+###  3️⃣ Frontend Setup
+-->    cd frontend
+-->   npm install
+-->   npm start
