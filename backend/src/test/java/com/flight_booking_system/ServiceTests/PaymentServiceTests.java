@@ -1,4 +1,4 @@
-package com.flight_booking_system.Service;
+package com.flight_booking_system.ServiceTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -15,6 +15,7 @@ import com.flight_booking_system.DAO.Payment_Dao;
 import com.flight_booking_system.DTO.ResponseStructure;
 import com.flight_booking_system.Entity.Payment;
 import com.flight_booking_system.Exception.*;
+import com.flight_booking_system.Service.Payment_Service;
 
 public class PaymentServiceTests {
 

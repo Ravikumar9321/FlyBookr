@@ -1,4 +1,4 @@
-package com.flight_booking_system.Controller;
+package com.flight_booking_system.ControllerTests;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -13,6 +13,7 @@ import org.springframework.http.*;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flight_booking_system.Controller.Passenger_Controller;
 import com.flight_booking_system.DTO.ResponseStructure;
 import com.flight_booking_system.Entity.Passenger;
 import com.flight_booking_system.Exception.*;

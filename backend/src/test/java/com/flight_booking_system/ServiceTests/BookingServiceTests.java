@@ -1,4 +1,4 @@
-package com.flight_booking_system.Service;
+package com.flight_booking_system.ServiceTests;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -17,6 +17,7 @@ import com.flight_booking_system.DAO.Passenger_Dao;
 import com.flight_booking_system.DTO.ResponseStructure;
 import com.flight_booking_system.Entity.*;
 import com.flight_booking_system.Exception.*;
+import com.flight_booking_system.Service.Booking_Service;
 
 public class BookingServiceTests {
 

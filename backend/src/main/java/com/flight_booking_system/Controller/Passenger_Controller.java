@@ -33,7 +33,6 @@ public class Passenger_Controller {
     public ResponseEntity<ResponseStructure<Passenger>> savePassenger(@Valid @RequestBody Passenger passenger) {
         return service.savePassenger(passenger);
     }
-    
     // ---------------READ------------------
 
     @Operation(summary = "Get all passengers", description = "Fetches all passenger records from the database")

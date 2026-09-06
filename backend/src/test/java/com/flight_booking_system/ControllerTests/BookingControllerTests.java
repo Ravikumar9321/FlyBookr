@@ -1,4 +1,4 @@
-package com.flight_booking_system.Controller;
+package com.flight_booking_system.ControllerTests;
 
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
@@ -16,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.flight_booking_system.Controller.Booking_Controller;
 import com.flight_booking_system.DTO.ResponseStructure;
 import com.flight_booking_system.Entity.Bookings;
 import com.flight_booking_system.Exception.IdNotFoundException;
