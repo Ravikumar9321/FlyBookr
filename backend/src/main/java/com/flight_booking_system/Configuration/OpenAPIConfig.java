@@ -16,16 +16,16 @@ public class OpenAPIConfig {
     public OpenAPI customOpenAPI() {
         return new OpenAPI()
             .info(new Info()
-                .title("FlyBookr API")              // ✅ Change title
-                .version("v1.0")                   // ✅ Change version
-                .description("Flight booking system APIs with JWT security") // ✅ Change description
+                .title("FlyBookr API")             
+                .version("v1.0")                  
+                .description("Flight booking system APIs with JWT security") 
                 )
             .components(new Components()
                 .addSecuritySchemes("bearerAuth",
                     new SecurityScheme()
                         .type(SecurityScheme.Type.HTTP)
                         .scheme("bearer")
-                        .bearerFormat("JWT")
+                        .bearerFormat("JWT") 
                 )
             )
             .addSecurityItem(new SecurityRequirement().addList("bearerAuth"));

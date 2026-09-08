@@ -17,7 +17,7 @@ A production‑ready flight booking system built with **Spring Boot + React.js**
 
 ### Frontend
 - React.js  
-- Axios  
+- Axios (with request/response interceptors for JWT authentication)  
 - React Router  
 - useState & useEffect  
 - Responsive CSS  
@@ -44,7 +44,7 @@ Backend follows a clean layered architecture:
 - 🔍 **Flight Management** – Search, filter, and view flights  
 - 🧾 **Booking Management** – Create bookings with multiple passengers  
 - 👥 **Passenger Management** – JPA entity mapping with relationships  
-- 🔒 **Secure Authentication** – JWT login & Register 
+- 🔒 **Secure Authentication** – JWT login & register with Axios interceptors to auto‑attach tokens and handle expired sessions by redirecting users to login.  
 - 📘 **API Documentation** – Swagger UI with JWT integration  
 - 🧪 **Testing** – Unit tests with JUnit 5 & Mockito  
 

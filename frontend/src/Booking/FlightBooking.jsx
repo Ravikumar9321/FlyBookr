@@ -1,218 +1,11 @@
 import { useLocation, useNavigate } from "react-router-dom";
 import { useState, useEffect } from "react";
-import axios from "axios";
+import api from "../api/api";
 
 function FlightBooking() {
-  // Styles defined FIRST - 50% WIDTH VERSION
-  const styles = {
-    container: {
-      padding: "24px 20px",  // Reduced padding for narrower form
-      maxWidth: "550px",     // 50% of original (1100px → 550px)
-      margin: "0 auto",
-      fontFamily: "'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
-      background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
-      minHeight: "100vh",
-      lineHeight: 1.6
-    },
-    title: {
-      fontSize: "26px",      // Slightly smaller for narrow layout
-      fontWeight: "800",
-      color: "#1a202c",
-      marginBottom: "28px",
-      textAlign: "center"
-    },
-    loading: {
-      textAlign: "center",
-      padding: "100px 20px",
-      fontSize: "18px",
-      color: "#666"
-    },
-    flightCard: {
-      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      color: "white",
-      padding: "24px",       // Reduced padding
-      borderRadius: "16px",
-      marginBottom: "28px",
-      boxShadow: "0 20px 60px rgba(102, 126, 234, 0.4)",
-      textAlign: "center",
-      position: "relative",
-      overflow: "hidden"
-    },
-    flightIcon: {
-      fontSize: "44px",      // Slightly smaller
-      marginBottom: "12px",
-      opacity: 0.9
-    },
-    flightAirline: {
-      fontSize: "22px",
-      fontWeight: "700",
-      margin: "0 0 8px 0"
-    },
-    flightRoute: {
-      fontSize: "18px",
-      margin: "10px 0",
-      fontWeight: "500"
-    },
-    flightTime: {
-      fontSize: "15px",
-      opacity: 0.95,
-      margin: "10px 0"
-    },
-    flightPricing: {
-      display: "flex",
-      justifyContent: "center",
-      gap: "16px",           // Reduced gap
-      margin: "16px 0",
-      flexWrap: "wrap"
-    },
-    pricePerSeat: {
-      fontSize: "20px",
-      fontWeight: "700"
-    },
-    totalPrice: {
-      fontSize: "20px",
-      fontWeight: "700",
-      background: "rgba(255,255,255,0.2)",
-      padding: "6px 14px",
-      borderRadius: "20px"
-    },
-    seatsAvailable: {
-      fontSize: "14px",
-      opacity: 0.9,
-      margin: "6px 0 0 0"
-    },
-    passengerSection: { marginBottom: "28px" },
-    sectionHeader: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: "20px",
-      paddingBottom: "14px",
-      borderBottom: "3px solid #e2e8f0"
-    },
-    passengerCard: {
-      background: "white",
-      border: "2px solid #e2e8f0",
-      borderRadius: "16px",
-      padding: "20px",       // Reduced padding
-      marginBottom: "18px",
-      boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
-      transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
-    },
-    passengerCardHover: {
-      boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
-      transform: "translateY(-4px)",
-      borderColor: "#667eea"
-    },
-    cardHeader: {
-      display: "flex",
-      justifyContent: "space-between",
-      alignItems: "center",
-      marginBottom: "18px"
-    },
-    passengerRow: {
-      display: "grid",
-      gridTemplateColumns: "1fr 1fr",  // 2-column grid for 50% width
-      gap: "12px",
-      marginBottom: "14px"
-    },
-    input: {
-      padding: "12px 16px",  // Slightly smaller
-      border: "2px solid #e2e8f0",
-      borderRadius: "10px",
-      fontSize: "14px",
-      transition: "all 0.3s ease",
-      background: "white",
-      outline: "none"
-    },
-    addBtn: {
-      padding: "10px 20px",
-      background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
-      color: "white",
-      border: "none",
-      borderRadius: "10px",
-      cursor: "pointer",
-      fontSize: "14px",
-      fontWeight: "600",
-      transition: "all 0.3s ease",
-      boxShadow: "0 4px 16px rgba(102, 126, 234, 0.3)"
-    },
-    addBtnDisabled: {
-      background: "#a0aec0",
-      cursor: "not-allowed",
-      boxShadow: "none"
-    },
-    removeBtn: {
-      padding: "8px 14px",
-      background: "#ef4444",
-      color: "white",
-      border: "none",
-      borderRadius: "8px",
-      cursor: "pointer",
-      fontSize: "13px",
-      fontWeight: "600",
-      transition: "all 0.2s ease"
-    },
-    paymentSection: {
-      background: "white",
-      padding: "20px",
-      borderRadius: "16px",
-      marginBottom: "24px",
-      boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
-      border: "1px solid #f1f5f9"
-    },
-    paymentOptions: {
-      marginTop: "12px"
-    },
-    selectInput: {
-      padding: "12px 16px",
-      border: "2px solid #e2e8f0",
-      borderRadius: "10px",
-      fontSize: "14px",
-      transition: "all 0.3s ease",
-      background: "white",
-      outline: "none",
-      width: "100%",
-      appearance: "none",
-      backgroundImage: "url(\"data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e\")",
-      backgroundPosition: "right 12px center",
-      backgroundRepeat: "no-repeat",
-      backgroundSize: "18px",
-      paddingRight: "44px"
-    },
-    submitBtn: {
-      padding: "16px 28px",
-      background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
-      color: "white",
-      border: "none",
-      borderRadius: "12px",
-      fontSize: "16px",
-      fontWeight: "700",
-      cursor: "pointer",
-      width: "100%",
-      marginBottom: "18px",
-      boxShadow: "0 12px 40px rgba(16, 185, 129, 0.4)",
-      transition: "all 0.3s ease"
-    },
-    submitBtnDisabled: {
-      background: "#6b7280",
-      cursor: "not-allowed",
-      boxShadow: "none"
-    },
-    backBtn: {
-      padding: "14px 28px",
-      background: "#6b7280",
-      color: "white",
-      border: "none",
-      borderRadius: "10px",
-      cursor: "pointer",
-      fontSize: "15px",
-      fontWeight: "600",
-      width: "100%",
-      transition: "all 0.3s ease",
-      boxShadow: "0 4px 16px rgba(107, 114, 128, 0.3)"
-    }
-  };
+  
+ 
+  
 
   const location = useLocation();
   const navigate = useNavigate();
@@ -226,7 +19,7 @@ function FlightBooking() {
   const [paymentMode, setPaymentMode] = useState("UPI");
   const [hoveredCard, setHoveredCard] = useState(null);
 
-  // ... rest of your functions remain exactly the same ...
+  
   useEffect(() => {
     if (!flight) {
       alert("No flight data. Redirecting to search...");
@@ -291,9 +84,9 @@ function FlightBooking() {
 
       console.log("Sending booking:", JSON.stringify(bookingData, null, 2));
 
-      const response = await axios.post("http://localhost:8080/api/booking", bookingData);
+      const response = await api.post("http://localhost:8080/api/booking", bookingData);
       alert(`Booking confirmed for ${totalPassengers} passengers! ID: ${response.data.data.id}`);
-      navigate("/");
+      navigate("/home");
     } catch (error) {
       console.error("Booking error:", error.response?.data);
       alert("Booking failed: " + (error.response?.data?.message || error.message));
@@ -405,7 +198,7 @@ function FlightBooking() {
                 style={styles.input}
                 required
               />
-              <div /> {/* Empty div to balance 2-column grid */}
+              <div /> 
             </div>
           </div>
         ))}
@@ -443,5 +236,225 @@ function FlightBooking() {
     </div>
   );
 }
+const styles = {
+  container: {
+    padding: "24px 20px",
+    maxWidth: "550px",
+    margin: "0 auto",
+    fontFamily: "'Inter', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif",
+    background: "linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%)",
+    minHeight: "100vh",
+    lineHeight: 1.6
+  },
+  title: {
+    fontSize: "26px",
+    fontWeight: "800",
+    color: "#1a202c",
+    marginBottom: "28px",
+    textAlign: "center"
+  },
+  loading: {
+    textAlign: "center",
+    padding: "100px 20px",
+    fontSize: "18px",
+    color: "#666"
+  },
+  flightCard: {
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    color: "white",
+    padding: "24px",
+    borderRadius: "16px",
+    marginBottom: "28px",
+    boxShadow: "0 20px 60px rgba(102, 126, 234, 0.4)",
+    textAlign: "center",
+    position: "relative",
+    overflow: "hidden"
+  },
+  flightIcon: {
+    fontSize: "44px",
+    marginBottom: "12px",
+    opacity: 0.9
+  },
+  flightAirline: {
+    fontSize: "22px",
+    fontWeight: "700",
+    margin: "0 0 8px 0"
+  },
+  flightRoute: {
+    fontSize: "18px",
+    margin: "10px 0",
+    fontWeight: "500"
+  },
+  flightTime: {
+    fontSize: "15px",
+    opacity: 0.95,
+    margin: "10px 0"
+  },
+  flightPricing: {
+    display: "flex",
+    justifyContent: "center",
+    gap: "16px",
+    margin: "16px 0",
+    flexWrap: "wrap"
+  },
+  pricePerSeat: {
+    fontSize: "20px",
+    fontWeight: "700"
+  },
+  totalPrice: {
+    fontSize: "20px",
+    fontWeight: "700",
+    background: "rgba(255,255,255,0.2)",
+    padding: "6px 14px",
+    borderRadius: "20px"
+  },
+  seatsAvailable: {
+    fontSize: "14px",
+    opacity: 0.9,
+    margin: "6px 0 0 0"
+  },
+  passengerSection: { marginBottom: "28px" },
+  sectionHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "20px",
+    paddingBottom: "14px",
+    borderBottomWidth: "3px",
+    borderBottomStyle: "solid",
+    borderBottomColor: "#e2e8f0"
+  },
+  passengerCard: {
+    background: "white",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+    borderRadius: "16px",
+    padding: "20px",
+    marginBottom: "18px",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+    transition: "all 0.3s cubic-bezier(0.4, 0, 0.2, 1)"
+  },
+  passengerCardHover: {
+    boxShadow: "0 16px 48px rgba(0,0,0,0.15)",
+    transform: "translateY(-4px)",
+    borderColor: "#667eea"
+  },
+  cardHeader: {
+    display: "flex",
+    justifyContent: "space-between",
+    alignItems: "center",
+    marginBottom: "18px"
+  },
+  passengerRow: {
+    display: "grid",
+    gridTemplateColumns: "1fr 1fr",
+    gap: "12px",
+    marginBottom: "14px"
+  },
+  input: {
+    padding: "12px 16px",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+    borderRadius: "10px",
+    fontSize: "14px",
+    transition: "all 0.3s ease",
+    background: "white",
+    outline: "none"
+  },
+  addBtn: {
+    padding: "10px 20px",
+    background: "linear-gradient(135deg, #667eea 0%, #764ba2 100%)",
+    color: "white",
+    border: "none",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "600",
+    transition: "all 0.3s ease",
+    boxShadow: "0 4px 16px rgba(102, 126, 234, 0.3)"
+  },
+  addBtnDisabled: {
+    background: "#a0aec0",
+    cursor: "not-allowed",
+    boxShadow: "none"
+  },
+  removeBtn: {
+    padding: "8px 14px",
+    background: "#ef4444",
+    color: "white",
+    border: "none",
+    borderRadius: "8px",
+    cursor: "pointer",
+    fontSize: "13px",
+    fontWeight: "600",
+    transition: "all 0.2s ease"
+  },
+  paymentSection: {
+    background: "white",
+    padding: "20px",
+    borderRadius: "16px",
+    marginBottom: "24px",
+    boxShadow: "0 8px 32px rgba(0,0,0,0.08)",
+    borderWidth: "1px",
+    borderStyle: "solid",
+    borderColor: "#f1f5f9"
+  },
+  paymentOptions: {
+    marginTop: "12px"
+  },
+  selectInput: {
+    padding: "12px 16px",
+    borderWidth: "2px",
+    borderStyle: "solid",
+    borderColor: "#e2e8f0",
+    borderRadius: "10px",
+    fontSize: "14px",
+    transition: "all 0.3s ease",
+    background: "white",
+    outline: "none",
+    width: "100%",
+    appearance: "none",
+    backgroundImage: "url(\"data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6,9 12,15 18,9'%3e%3c/polyline%3e%3c/svg%3e\")",
+    backgroundPosition: "right 12px center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "18px",
+    paddingRight: "44px"
+  },
+  submitBtn: {
+    padding: "16px 28px",
+    background: "linear-gradient(135deg, #10b981 0%, #059669 100%)",
+    color: "white",
+    border: "none",
+    borderRadius: "12px",
+    fontSize: "16px",
+    fontWeight: "700",
+    cursor: "pointer",
+    width: "100%",
+    marginBottom: "18px",
+    boxShadow: "0 12px 40px rgba(16, 185, 129, 0.4)",
+    transition: "all 0.3s ease"
+  },
+  submitBtnDisabled: {
+    background: "#6b7280",
+    cursor: "not-allowed",
+    boxShadow: "none"
+  },
+  backBtn: {
+    padding: "14px 28px",
+    background: "#6b7280",
+    color: "white",
+    border: "none",
+    borderRadius: "10px",
+    cursor: "pointer",
+    fontSize: "15px",
+    fontWeight: "600",
+    width: "100%",
+    transition: "all 0.3s ease",
+    boxShadow: "0 4px 16px rgba(107, 114, 128, 0.3)"
+  }
+};
+
 
 export default FlightBooking;

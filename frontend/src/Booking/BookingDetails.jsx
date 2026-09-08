@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+import api from "../api/api"; 
 
 function ViewBookings() {
   const [bookings, setBookings] = useState([]);
@@ -21,7 +21,7 @@ function ViewBookings() {
   const fetchBookings = async () => {
     try {
       setLoading(true);
-      const response = await axios.get("http://localhost:8080/api/booking");
+      const response = await api.get("http://localhost:8080/api/booking");
       const data = response.data.data || response.data;
       setBookings(data);
       setError("");
@@ -35,7 +35,7 @@ function ViewBookings() {
  const cancelBooking = async (bookingId) => {
     if (window.confirm("Are you sure you want to cancel this booking?")) {
       try {
-        await axios.delete(`http://localhost:8080/api/booking/${bookingId}`);
+        await api.delete(`http://localhost:8080/api/booking/${bookingId}`);
         alert("Booking cancelled successfully!");
         fetchBookings(); // Reload all bookings and re‑filter
       } catch (err) {
@@ -93,8 +93,10 @@ function ViewBookings() {
 
 
   
-  if (error && loading) {
+  if (error&&loading) {
+    
     return (
+      
       <div style={styles.center}>
         <h2>{error}</h2>
         <button onClick={fetchBookings} style={styles.refreshBtn}>
@@ -262,7 +264,7 @@ function ViewBookings() {
           </div>
 
           <div style={styles.footer}>
-            <Link to="/" style={styles.homeLink}>
+            <Link to="/home" style={styles.homeLink}>
               🏠 Back to Home
             </Link>
           </div>

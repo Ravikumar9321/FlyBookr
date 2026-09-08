@@ -1,22 +1,25 @@
-import axios from "axios";
 import { useState, useEffect } from "react";
-import { Link, useNavigate} from "react-router-dom";
-
-
+import { Link, useNavigate } from "react-router-dom";
+import api from "../api/api";
 
 function SearchLayout() {
-    const navigate = useNavigate();
-  const [allFlights, setAllFlights] = useState([]);  
-  const [flights, setFlights] = useState([]);       
+  const navigate = useNavigate();
+  const [allFlights, setAllFlights] = useState([]);
+  const [flights, setFlights] = useState([]);
+
+  // Individual filters
   const [airlineName, setAirlineName] = useState("");
   const [price, setPrice] = useState("");
   const [source, setSource] = useState("");
   const [destination, setDestination] = useState("");
 
+  // Combined search
+  const [searchQuery, setSearchQuery] = useState("");
+
   useEffect(() => {
     const fetchAllFlights = async () => {
       try {
-        const response = await axios.get("http://localhost:8080/api/flight");
+        const response = await api.get("http://localhost:8080/api/flight");
         setAllFlights(response.data.data || response.data);
         setFlights(response.data.data || response.data);
       } catch (error) {
@@ -28,6 +31,24 @@ function SearchLayout() {
 
   useEffect(() => {
     let filtered = [...allFlights];
+
+
+    const query = searchQuery.trim().toLowerCase();
+    if (query) {
+  
+   
+      filtered = filtered.filter(flight => {
+        const matchesText =
+          flight.airlineName.toLowerCase().includes(query) ||
+          flight.source.toLowerCase().includes(query) ||
+          flight.destination.toLowerCase().includes(query);
+
+
+        return matchesText ;
+      });
+    }
+
+    // ✅ Individual filters (still available)
     if (airlineName) {
       filtered = filtered.filter(flight =>
         flight.airlineName.toLowerCase().includes(airlineName.toLowerCase())
@@ -37,16 +58,25 @@ function SearchLayout() {
       filtered = filtered.filter(flight => flight.price <= parseInt(price));
     }
     if (source) {
-      filtered = filtered.filter(flight => flight.source.toLowerCase() === source.toLowerCase());
+      filtered = filtered.filter(flight =>
+        flight.source.toLowerCase().includes(source.toLowerCase())
+      );
     }
     if (destination) {
-      filtered = filtered.filter(flight => flight.destination.toLowerCase() === destination.toLowerCase());
+      filtered = filtered.filter(flight =>
+        flight.destination.toLowerCase().includes(destination.toLowerCase())
+      );
     }
+
     setFlights(filtered);
-  }, [airlineName, price, source, destination, allFlights]);
+  }, [searchQuery, airlineName, price, source, destination, allFlights]);
 
   const clearFilters = () => {
-    setAirlineName(""); setPrice(""); setSource(""); setDestination("");
+    setAirlineName("");
+    setPrice("");
+    setSource("");
+    setDestination("");
+    setSearchQuery("");
     setFlights(allFlights);
   };
 
@@ -60,7 +90,18 @@ function SearchLayout() {
         </div>
       </div>
 
-      {/* Filters */}
+      {/* Combined Search */}
+      <div style={styles.filters}>
+        <input
+          type="text"
+          placeholder="Search (e.g., Chennai to Delhi Indigo 5000)"
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          style={styles.input}
+        />
+      </div>
+
+      {/* Individual Filters */}
       <div style={styles.filters}>
         <div style={styles.filterRow}>
           <input
@@ -92,10 +133,8 @@ function SearchLayout() {
             style={styles.input}
           />
         </div>
-        <button onClick={clearFilters} style={styles.clearBtn}>
-          Clear Filters
-        </button>
-        <button onClick={()=>navigate("/")} style={styles.clearBtn}>Back to Home</button>
+        <button onClick={clearFilters} style={styles.clearBtn}>Clear Filters</button>
+        <button onClick={() => navigate("//home")} style={styles.clearBtn}>Back to Home</button>
       </div>
 
       {/* Results Table */}
@@ -123,9 +162,7 @@ function SearchLayout() {
                 return (
                   <tr key={flight.id} style={styles.tableRow}>
                     <td style={styles.td}>{flight.id}</td>
-                    <td style={styles.td}>
-                      <div style={styles.airline}>{flight.airlineName}</div>
-                    </td>
+                    <td style={styles.td}><div style={styles.airline}>{flight.airlineName}</div></td>
                     <td style={styles.td}>
                       <div style={styles.route}>
                         <div style={styles.source}>{flight.source}</div>
@@ -136,16 +173,10 @@ function SearchLayout() {
                     <td style={styles.td}>{departure}</td>
                     <td style={styles.td}>{arrival}</td>
                     <td style={styles.td}>{duration}</td>
+                    <td style={styles.td}><div style={styles.price}>₹{flight.price.toLocaleString()}</div></td>
+                    <td style={styles.td}><span style={styles.seats}>{flight.totalSeats}</span></td>
                     <td style={styles.td}>
-                      <div style={styles.price}>₹{flight.price.toLocaleString()}</div>
-                    </td>
-                    <td style={styles.td}>
-                      <span style={styles.seats}>{flight.totalSeats}</span>
-                    </td>
-                    <td style={styles.td}>
-                      <Link to="/booking" state={{flight}} style={styles.bookBtn}>
-                        Book Now
-                      </Link>
+                      <Link to="/booking" state={{flight}} style={styles.bookBtn}>Book Now</Link>
                     </td>
                   </tr>
                 );
@@ -164,6 +195,7 @@ function SearchLayout() {
     </div>
   );
 }
+
 
 const styles = {
   container: {

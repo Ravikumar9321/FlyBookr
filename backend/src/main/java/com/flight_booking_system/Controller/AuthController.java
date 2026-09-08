@@ -16,9 +16,15 @@ import com.flight_booking_system.Repository.User_Repository;
 import com.flight_booking_system.Service.User_Service;
 import com.flight_booking_system.Utility.JwtUtil;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
+
 
 @RestController
+@CrossOrigin(origins = "http://localhost:3000")
 @RequestMapping("/api/auth")
+@Tag(name = "Authentication", description = "Authentication related APIs")
 public class AuthController {
 	
 	@Autowired
@@ -29,6 +35,8 @@ public class AuthController {
 	private PasswordEncoder passwordEncoder;
 	@Autowired
 	private JwtUtil jwtUtil;
+	 @Operation(summary = "Register ", description = "Add  registration")
+	    @ApiResponse(responseCode = "201", description = "Registration created successfully")
 	@PostMapping("/register")
     public ResponseEntity<AuthResponse> registerUser(@RequestBody AuthRequest request) {
         if (repository.findByEmail(request.email()).isPresent()) {
@@ -42,6 +50,8 @@ public class AuthController {
 
         return new ResponseEntity<>(new AuthResponse("Registered successfully", null), HttpStatus.CREATED);
     }
+	 @Operation(summary = "Login  ", description = "Login to access")
+	    @ApiResponse(responseCode = "200", description = "Login  successfully")
 	@PostMapping("/login")
 	public ResponseEntity<AuthResponse> loginUser(@RequestBody AuthRequest request) {
 		Optional<UserInfo> userOptional = repository.findByEmail(request.email());

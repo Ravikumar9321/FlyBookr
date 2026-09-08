@@ -4,9 +4,9 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.*;
 
-import com.flight_booking_system.DTO.Bookingstatus;
-import com.flight_booking_system.DTO.PaymentMode;
-import com.flight_booking_system.Entity.Payment;
+import com.flight_booking_system.DTO.*;
+import com.flight_booking_system.Entity.*;
+
 
 public interface Payment_Repository extends JpaRepository<Payment, Integer> {
 	

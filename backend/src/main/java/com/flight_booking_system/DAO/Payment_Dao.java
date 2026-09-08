@@ -1,20 +1,16 @@
 package com.flight_booking_system.DAO;
 
 
-import java.util.List;
-import java.util.Optional;
-
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+
 import org.springframework.stereotype.Repository;
 
-import com.flight_booking_system.DTO.Bookingstatus;
+import com.flight_booking_system.DTO.*;
 import com.flight_booking_system.DTO.PaymentMode;
 import com.flight_booking_system.Entity.Payment;
 import com.flight_booking_system.Repository.Payment_Repository;
-
 
 
 @Repository
@@ -33,7 +29,6 @@ public class Payment_Dao {
 
 	//iii)get Payment details by id
 	public Optional<Payment> getPaymentById(int id) {
-		
 		return pr .findById(id);
 	}
 	
@@ -51,7 +46,6 @@ public class Payment_Dao {
 		return pr .findAll(PageRequest.of(pageNumber, pageSize,Sort.by(field).ascending()));
 	}
 	public List<Payment> getPaymentDetailsByStatus(Bookingstatus status) {
-	
 		return pr.getPaymentDetailsByStatus(status);
 	}
 	public List<Payment> getPaymentDetailsByPrice(Double price) {

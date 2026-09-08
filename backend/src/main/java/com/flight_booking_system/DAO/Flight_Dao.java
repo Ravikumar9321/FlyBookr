@@ -54,7 +54,7 @@ public class Flight_Dao {
 		return fr.getFlightDetailsByAirlineName(airlineName);
 	}
 	public List<Flight> getFlightDetailsBysourceAndDestionation(String source, String destination) {
-					return fr.getFlightDetailsBysourceAndDestionation(source, destination);
+		return fr.getFlightDetailsBysourceAndDestionation(source, destination);
 	}
 	public List<Flight> getFlightDetailsByPrice(String price) {
 		return fr.getFlightDetailsByPrice(price);

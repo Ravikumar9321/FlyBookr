@@ -43,7 +43,7 @@ public class Flight_Controller {
     // ---------------READ------------------
     @Operation(summary = "Get all flights", description = "Fetches all flight records from the database")
     @ApiResponse(responseCode = "200", description = "Flights retrieved successfully")
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<ResponseStructure<List<Flight>>> fetchallFlightDetails() {
         return service.fetchallFlight();
     }

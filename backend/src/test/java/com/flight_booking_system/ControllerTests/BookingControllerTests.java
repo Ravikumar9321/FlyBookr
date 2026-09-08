@@ -3,24 +3,20 @@ package com.flight_booking_system.ControllerTests;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
-import org.junit.jupiter.api.Nested;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import org.springframework.data.domain.*;
+import org.springframework.http.*;
+
 import org.springframework.test.web.servlet.MockMvc;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.flight_booking_system.Controller.Booking_Controller;
 import com.flight_booking_system.DTO.ResponseStructure;
 import com.flight_booking_system.Entity.Bookings;
-import com.flight_booking_system.Exception.IdNotFoundException;
-import com.flight_booking_system.Exception.NoRecordFoundException;
+import com.flight_booking_system.Exception.*;
 import com.flight_booking_system.Service.Booking_Service;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;

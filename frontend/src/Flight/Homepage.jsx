@@ -4,9 +4,7 @@ function Homepage() {
   return (
     <div style={homepageStyles.container}>
       {/* Header */}
-      <header style={homepageStyles.header}>
-        <h2 style={homepageStyles.headerTitle}>Flight Booking System</h2>
-      </header>
+     
 
       {/* Hero Section */}
       <section style={homepageStyles.hero}>
@@ -16,7 +14,7 @@ function Homepage() {
             <span style={homepageStyles.highlight}> Easily</span>
           </h1>
           <p style={homepageStyles.heroSubtitle}>
-            Find the best flights across 100+ airlines. 
+            Find the best flights across 10+ airlines. 
             Fast, secure, and hassle-free booking.
           </p>
           <div style={homepageStyles.ctaButtons}>
@@ -36,11 +34,11 @@ function Homepage() {
       {/* Quick Stats */}
       <section style={homepageStyles.stats}>
         <div style={homepageStyles.statItem}>
-          <div style={homepageStyles.statNumber}>100+</div>
+          <div style={homepageStyles.statNumber}>10+</div>
           <div style={homepageStyles.statLabel}>Airlines</div>
         </div>
         <div style={homepageStyles.statItem}>
-          <div style={homepageStyles.statNumber}>50K+</div>
+          <div style={homepageStyles.statNumber}>5K+</div>
           <div style={homepageStyles.statLabel}>Flights Daily</div>
         </div>
         <div style={homepageStyles.statItem}>

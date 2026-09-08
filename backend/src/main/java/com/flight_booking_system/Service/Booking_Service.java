@@ -2,28 +2,18 @@ package com.flight_booking_system.Service;
 
 
 import java.time.LocalDate;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.flight_booking_system.DAO.Booking_Dao;
-import com.flight_booking_system.DAO.Flight_Dao;
-import com.flight_booking_system.DAO.Passenger_Dao;
-import com.flight_booking_system.DTO.Bookingstatus;
-import com.flight_booking_system.DTO.ResponseStructure;
-import com.flight_booking_system.Entity.Bookings;
-import com.flight_booking_system.Entity.Flight;
-import com.flight_booking_system.Entity.Passenger;
-import com.flight_booking_system.Entity.Payment;
-import com.flight_booking_system.Exception.IdNotFoundException;
-import com.flight_booking_system.Exception.NoRecordFoundException;
-import com.flight_booking_system.Exception.NoSeatAvailableException;
+import com.flight_booking_system.DAO.*;
+import com.flight_booking_system.DTO.*;
+import com.flight_booking_system.Entity.*;
+import com.flight_booking_system.Exception.*;
 
 @Service
 @Transactional
@@ -37,53 +27,56 @@ public class Booking_Service {
 	private Passenger_Dao pdao;
 	
 	
-
-	
 	public ResponseEntity<ResponseStructure<Bookings>> createBooking(Bookings booking) {
-		ResponseStructure<Bookings> rs=new ResponseStructure<Bookings>();
-		  List<Passenger> passengers=pdao.getallPassenger();
-		
-		          Optional<Flight> opt=fdao.getFlightById(booking.getFlight().getId());
-		          if(opt.isPresent()) {
-		        	  Flight flight=opt.get();
-		        	     Integer size=0;
-                            for(Passenger p:passengers) {
-                            	if(p.getBooking().getFlight().getId().equals(flight.getId()))
-                            		size++;
-                            }
-		        	  if(size+booking.getPassengers().size()<=flight.getTotalSeats()){
-		        	   
-		        	  Double totalPrice=flight.getPrice()*booking.getPassengers().size();
-		        	  
-		        	     for(Passenger existsPassenger:passengers) {
-		        		for(Passenger p:booking.getPassengers()) {
-		        			//to avoid seat exists
-		        	    	if(! existsPassenger.getSeatNumber().equals(p.getSeatNumber()))
-		        			   p.setBooking(booking);
-		        			else
-		        				throw new NoSeatAvailableException(p.getSeatNumber()+ "Seat are already booked");
-		        	  }
-		        	     }
-				        Payment payment= booking.getPayment();
-		        	    payment.setBooking(booking);
-		        	    payment.setAmount(totalPrice);
-	        		    booking.setFlight(flight);
-		        	  rs.setStatusCode(HttpStatus.OK.value());
-		        	  rs.setData(bdao.createBooking(booking));
+	    ResponseStructure<Bookings> rs = new ResponseStructure<>();
 
-		        	  rs.setMessage("Booking successfully done");
-		        	  return new  ResponseEntity<ResponseStructure<Bookings>>(rs,HttpStatus.OK);
-		          }
-		        	  else
-			        	  throw new NoSeatAvailableException("No Seats are available");
-		          }
-		          else
-		        	  throw new NoRecordFoundException("Flight Details Not Found");
+	    // ✅ Get flight by ID
+	    Optional<Flight> opt = fdao.getFlightById(booking.getFlight().getId());
+	    if (opt.isEmpty()) {
+	        throw new NoRecordFoundException("Flight Details Not Found");
+	    }
 
+	    Flight flight = opt.get();
 
-		          }
-		          
-		          		        	  
+	    // ✅ Get all passengers already booked for this flight
+	    List<Passenger> passengersForFlight = pdao.findByFlightId(flight.getId());
+
+	    // ✅ Check seat availability
+	    int alreadyBooked = passengersForFlight.size();
+	    int requestedSeats = booking.getPassengers().size();
+
+	    if (alreadyBooked + requestedSeats > flight.getTotalSeats()) {
+	        throw new NoSeatAvailableException("No Seats are available");
+	    }
+
+	    // ✅ Validate seat numbers and link booking to passengers
+	    for (Passenger newPassenger : booking.getPassengers()) {
+	        for (Passenger existingPassenger : passengersForFlight) {
+	            if (existingPassenger.getSeatNumber().equals(newPassenger.getSeatNumber())) {
+	                throw new NoSeatAvailableException(
+	                    "Seat " + newPassenger.getSeatNumber() + " is already booked"
+	                );
+	            }
+	        }
+	        newPassenger.setBooking(booking);
+	    }
+
+	    Payment payment = booking.getPayment();
+	    payment.setBooking(booking);
+	    payment.setAmount(flight.getPrice() * requestedSeats);
+	    booking.setFlight(flight);
+
+	  
+	    Bookings savedBooking = bdao.createBooking(booking);
+
+	    rs.setStatusCode(HttpStatus.OK.value());
+	    rs.setData(savedBooking);
+	    rs.setMessage("Booking successfully done");
+
+	    return new ResponseEntity<>(rs, HttpStatus.OK);
+	}
+
+ 	        	  
 		
 	
 
@@ -183,6 +176,7 @@ public ResponseEntity<ResponseStructure<List<Passenger>>> getallPassengersByBook
 
 
 public ResponseEntity<ResponseStructure<List<Bookings>>> getBookingsDetailsByDate(LocalDate date) {
+	
 	ResponseStructure<List<Bookings>> rs=new ResponseStructure<>();
     List<Bookings> bookings =bdao.getBookingsDetailsByDate(date);
     if(!bookings.isEmpty()) {

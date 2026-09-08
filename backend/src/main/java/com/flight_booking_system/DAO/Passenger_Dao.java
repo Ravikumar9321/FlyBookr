@@ -17,36 +17,39 @@ import com.flight_booking_system.Repository.Passenger_Repository;
 @Repository
 public class Passenger_Dao {
 	@Autowired
-	private Passenger_Repository pr;
+  private	Passenger_Repository  passengerRepo;
 
 //i)save Passenger
 	public Passenger savePassenger(Passenger Passenger) {
-		return pr .save(Passenger);
+		return passengerRepo .save(Passenger);
 	}
 //ii)fetch all Passenger details
 	public List<Passenger> getallPassenger() {
-		return pr .findAll();
+		return passengerRepo .findAll();
 	}
 
 	//iii)get Passenger details by id
 	public Optional<Passenger> getPassengerById(int id) {
-		return pr .findById(id);
+		return passengerRepo .findById(id);
 	}
 	//iv)update Passenger
 		public Passenger updatePassenger(Passenger Passenger) {
-			return pr .save(Passenger);
+			return passengerRepo .save(Passenger);
 		}
 	//v)delete Passenger details
 	public void deletePassenger(Passenger Passenger) {
-	       pr .delete(Passenger);
+	       passengerRepo .delete(Passenger);
 	}
 	
 	//vi)get Details in pagenaton ,sort format
 	public Page<Passenger> getPassengerByPagenatio_Sort(int pageNumber, int pageSize, String field) {
-		return pr .findAll(PageRequest.of(pageNumber, pageSize,Sort.by(field).ascending()));
+		return passengerRepo .findAll(PageRequest.of(pageNumber, pageSize,Sort.by(field).ascending()));
 	}
 	public Optional<Passenger> getPassengerDetailsByContactNumber(String contact) {
-		return pr.getPassengerDetailsByContactNumber(contact);
+		return passengerRepo.getPassengerDetailsByContactNumber(contact);
+	}
+	public List<Passenger> findByFlightId(Integer flightId) {
+		return passengerRepo.findByFlightId(flightId);
 	}
 	
 }

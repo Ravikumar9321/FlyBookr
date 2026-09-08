@@ -3,21 +3,14 @@ package com.flight_booking_system.DAO;
 
 import java.time.LocalDate;
 
-import java.util.List;
-import java.util.Optional;
-
+import java.util.*;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.*;
+
 import org.springframework.stereotype.Repository;
 
 import com.flight_booking_system.DTO.Bookingstatus;
-import com.flight_booking_system.Entity.Bookings;
-
-import com.flight_booking_system.Entity.Passenger;
-import com.flight_booking_system.Entity.Payment;
-
+import com.flight_booking_system.Entity.*;
 import com.flight_booking_system.Repository.Booking_Repository;
 
 
@@ -55,27 +48,22 @@ public class Booking_Dao {
 	}
 
 	public List<Passenger> getallPassengersByBookingsId(Integer id) {
-	
 		return br.getAllPassengerByBookingId(id);
 	}
 
 	public List<Bookings> getBookingsDetailsByDate(LocalDate date) {
-	
 		return br.getAllBookingDeatilsByDate(date);
 	}
 
 	public List<Bookings> getBookingsDetailsByStatus(Bookingstatus status) {
-		
 		return br.getAllBookingDeatilsByStatus(status);
 	}
 
 	public Optional<Payment> getPaymentDetailsbyBookingId(Integer bookingId) {
-	
 		return br.getPaymentByBookingId(bookingId);
 	}
 
 	public List<Bookings> getBookingDetailsbyFlightId(Integer flightId) {
-	
 		return br.getAllBookingDeatilsByFlightId(flightId);
 	}
 
